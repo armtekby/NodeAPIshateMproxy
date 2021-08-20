@@ -123,6 +123,19 @@ app.post("/api*", function (req, res) {
     })
 });
 
+app.get("/", async function (req, res) {
+  console.log("Hello HealthCheck! Cloud Foudnry HealthCheck");
+  try {
+  const fetch_response = await fetch('https://api.shate-m.ru/api/HealthCheck/Check');
+  res.setHeader('ShateM', true);
+  //res.json(json);
+  res.status(fetch_response.status);
+  res.json(fetch_response.ok ? await fetch_response.json() : await fetch_response.text());
+} catch (error) {
+  console.log(error);
+  res.send(error);
+}
+});
 
 
 // app.get("/",  function (req, res) {
