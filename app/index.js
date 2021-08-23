@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 //require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
 //process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
-//API GET
+//API GET*
 app.get("/api*", async function (req, res) {
   const shatemURL = 'https://api.shate-m.ru';
   let shatemApiURL = shatemURL + req.originalUrl;//'/api/GetPrices'
