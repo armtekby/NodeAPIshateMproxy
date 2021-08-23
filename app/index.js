@@ -2,25 +2,13 @@ const express = require("express");
 const app = express();
 const fetch = require('node-fetch');
 
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded 
+app.use(express.json()) ;
+app.use(express.urlencoded({ extended: true })) ;
 
 
 //require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
-//process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-app.get("/api/HealthCheck/Check", async function (req, res) {
-  console.log("Hello HealthCheck! Cloud Foudnry HealthCheck");
-  try {
-  const fetch_response = await fetch('https://api.shate-m.ru/api/HealthCheck/Check');
-  res.setHeader('ShateM', true);
-  //res.json(json);
-  res.status(fetch_response.status);
-  res.json(fetch_response.ok ? await fetch_response.json() : await fetch_response.text());
-} catch (error) {
-  console.log(error);
-  res.send(error);
-}
-});
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+
 //API GET
 app.get("/api*", async function (req, res) {
   const shatemURL = 'https://api.shate-m.ru';
@@ -43,6 +31,20 @@ app.get("/api*", async function (req, res) {
     console.log(error);
     res.send(error);
   }
+});
+
+app.get("/", async function (req, res) {
+  console.log("Hello HealthCheck! Cloud Foudnry HealthCheck");
+  try {
+  const fetch_response = await fetch('https://api.shate-m.ru/api/HealthCheck/Check');
+  res.setHeader('ShateM', true);
+  //res.json(json);
+  res.status(fetch_response.status);
+  res.json(fetch_response.ok ? await fetch_response.json() : await fetch_response.text());
+} catch (error) {
+  console.log(error);
+  res.send(error);
+}
 });
 
 //LOGIN
@@ -100,8 +102,7 @@ app.post("/aapi/search/GetPrices", function (req, res) {
 app.post("/api*", function (req, res) {
   // '{"Articles":[{"ArticleCode":"PCAM1001","TradeMarkName":"PATRON"}],"ShippingAddressCode":"10211"}'
   const shatemURL = 'https://api.shate-m.ru';
-  let shatemApiURL = shatemURL + req.originalUrl;//'/api/GetPrices'
-  // originalUrl:'/api/search/GetPricess'
+  let shatemApiURL = shatemURL + req.originalUrl;
   // fetch('https://api.shate-m.ru/api/search/GetPrices', {
   fetch(shatemApiURL, {
     method: 'POST',
@@ -123,48 +124,10 @@ app.post("/api*", function (req, res) {
     })
 });
 
-app.get("/", async function (req, res) {
-  console.log("Hello HealthCheck! Cloud Foudnry HealthCheck");
-  try {
-  const fetch_response = await fetch('https://api.shate-m.ru/api/HealthCheck/Check');
-  res.setHeader('ShateM', true);
-  //res.json(json);
-  res.status(fetch_response.status);
-  res.json(fetch_response.ok ? await fetch_response.json() : await fetch_response.text());
-} catch (error) {
-  console.log(error);
-  res.send(error);
-}
-});
 
 
-// app.get("/",  function (req, res) {
-//   //res.send("Hello world! Cloud Foudnry Node Js Demo");
-//   console.log("Hello world! Cloud Foudnry Node Js Demo");
-//  fetch('https://api.shate-m.ru/api/HealthCheck/Check')
-//  .then(fetch_response => fetch_response.json())
-//  .then(json => res.json(json));
 
-// });
 const port = process.env.PORT || 5000;
 app.listen(port, function () {
   console.log("app listening at port " + port);
 });
-
-// app.get("/redirect", function(req, res){
-//   res.redirect('https://api.shate-m.ru/api/HealthCheck/Check'); 
-// });
-// app.post("/users", function (req, res) {
-//   let todo = {
-//     userId: 123,
-//     title: "loren impsum doloris",
-//     completed: false
-// };
-// fetch('https://jsonplaceholder.typicode.com/todos', {
-//     method: 'POST',
-//     body: JSON.stringify(todo),
-//     headers: { 'Content-Type': 'application/json' }
-// }).then(res => res.json())
-//   .then(json => res.json(json))
-//   .catch(err => console.log(err))
-// });
