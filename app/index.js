@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const fetch = require('node-fetch');
 
-app.use(express.json()) ;
-app.use(express.urlencoded({ extended: true })) ;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 //require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
@@ -21,10 +21,7 @@ app.get("/api*", async function (req, res) {
         'Content-Type': 'application/json'
       }
     });
-    //const json = await fetch_response.json();
-
     res.setHeader('ShateM', true);
-    //res.json(json);
     res.status(fetch_response.status);
     res.json(fetch_response.ok ? await fetch_response.json() : await fetch_response.text());
   } catch (error) {
@@ -36,15 +33,15 @@ app.get("/api*", async function (req, res) {
 app.get("/", async function (req, res) {
   console.log("Hello HealthCheck! Cloud Foudnry HealthCheck");
   try {
-  const fetch_response = await fetch('https://api.shate-m.ru/api/HealthCheck/Check');
-  res.setHeader('ShateM', true);
-  //res.json(json);
-  res.status(fetch_response.status);
-  res.json(fetch_response.ok ? await fetch_response.json() : await fetch_response.text());
-} catch (error) {
-  console.log(error);
-  res.send(error);
-}
+    const fetch_response = await fetch('https://api.shate-m.ru/api/HealthCheck/Check');
+    res.setHeader('ShateM', true);
+    //res.json(json);
+    res.status(fetch_response.status);
+    res.json(fetch_response.ok ? await fetch_response.json() : await fetch_response.text());
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
 });
 
 //LOGIN
