@@ -7,7 +7,7 @@ app.use(express.urlencoded({ extended: true })) ;
 
 
 //require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+//process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 //API GET
 app.get("/api*", async function (req, res) {

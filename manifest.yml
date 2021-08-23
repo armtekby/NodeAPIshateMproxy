@@ -1,8 +1,8 @@
 applications:
-  - name: mynodeappdemo
+  - name: shatemapi
     random-route: true
     path: app
     buidpack: https://github.com/cloudfoundry/nodejs-buidpack
-    host: mynodeappdemo
+    host: shatemapi
     memory: 128M
     disk_quota: 256M
