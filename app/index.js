@@ -158,6 +158,11 @@ app.post("/api/v1/auth/login", function (req, res) {
 });
 
 //API GET V1
+app.get("/", async function (req, res) {
+  console.log("Hello world! Cloud Foudnry Node Js API https://api.shate-m.ru");
+  res.send("Hello world! Cloud Foudnry Node Js API https://api.shate-m.ru");
+});
+
 app.get("/api*", async function (req, res) {
   const shatemURL = 'https://api.shate-m.ru';
   let shatemApiURL = shatemURL + req.originalUrl;//'/api/GetPrices'
@@ -204,7 +209,6 @@ app.post("/api*", function (req, res) {
       res.send(err)
     })
 });
-
 
 
 const port = process.env.PORT || 5000;
